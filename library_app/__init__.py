@@ -1,7 +1,7 @@
 """
 library_app package
 Personal Library Manager.
-Waseem
+Waseem Isaac
 """
 
 from .file_handler import (
