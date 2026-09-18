@@ -1,6 +1,6 @@
 """
 book_operations.py
-Dana
+By Dana
 """
 
 
@@ -22,6 +22,7 @@ def add_book(books):
         except ValueError:
             print("⚠️  Please enter a valid number for the year.")
     genre = input("Genre: ").strip()
+
     books.append({"title": title, "author": author, "year": year, "genre": genre})
     print("✅ Book added and saved!")
 
@@ -56,6 +57,7 @@ def search_books(books):
         print(f"🔍 No books found matching '{term}'.")
         return
     for book in matches:
+
         print(f"  • {book.get('title')} — {book.get('author')} ...")
 
 
@@ -70,4 +72,5 @@ def delete_book(books):
             removed = books.pop(i)
             print(f"🗑️  Deleted '{removed.get('title')}'")
             return
+        
     print(f"⚠️  No book found with the title '{title}'.")
