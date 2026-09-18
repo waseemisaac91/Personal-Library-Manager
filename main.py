@@ -31,20 +31,11 @@ IMPORT_FILE= os.path.join("data", "books_to_import.csv")
 def main_menu():
     """Print the menu and return the user's choice."""
 
-    print("\n===== Personal Library Manager =====")
-    print("1. Add a book")
-    print("2. View all books")
-    print("3. Search books")
-    print("4. Delete a book")
-    print("5. Export to CSV")
-    print("6. Import from CSV")
-    print("7. Exit")
-    
-    return input("Choose an option: ").strip()
 
 
 def main():
     """Main loop."""
+   
     print("Welcome to your Personal Library Manager! 📚")
 
     # Load existing library (or start empty)
