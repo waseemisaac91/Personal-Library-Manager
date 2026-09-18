@@ -24,7 +24,8 @@ except ImportError:
 
 
 DATA_FILE = os.path.join("data", "library.json")
-CSV_FILE = "library_export.csv"
+CSV_FILE = os.path.join("dara", "library_export.csv")
+IMPORT_FILE= os.path.join("data", "books_to_import.csv")
 
 
 def main_menu():
@@ -74,10 +75,11 @@ def main():
             export_to_csv(books, CSV_FILE)
 
         elif choice == "6":
-            imported = import_from_csv(CSV_FILE)
+            imported = import_from_csv(IMPORT_FILE)
             if imported:
                 books.extend(imported)
                 save_library(DATA_FILE, books)
+                print(f"Imported {len(imported)} book(s).")
                 print(f"✅ Library now has {len(books)} book(s).")
 
         elif choice == "7":
