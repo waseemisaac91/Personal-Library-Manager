@@ -38,6 +38,7 @@ def main_menu():
     print("5. Export to CSV")
     print("6. Import from CSV")
     print("7. Exit")
+
     return input("Choose an option: ").strip()
 
 
@@ -74,12 +75,15 @@ def main():
             export_to_csv(books, CSV_FILE)
 
         elif choice == "6":
-            imported = import_from_csv(IMPORT_FILE)
-            if imported:
-                books.extend(imported)
-                save_library(DATA_FILE, books)
-                print(f"Imported {len(imported)} book(s).")
-                print(f"✅ Library now has {len(books)} book(s).")
+              imported = import_from_csv(CSV_FILE, existing_books=books)
+              if imported:
+               books.extend(imported)
+               save_library(DATA_FILE, books)
+               
+               print(f"✅ Added {len(imported)} new book(s).")
+
+              else:
+               print("⚠️  No new books to import (all already exist).")
 
         elif choice == "7":
             print("Goodbye! 👋")

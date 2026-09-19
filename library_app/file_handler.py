@@ -55,28 +55,45 @@ def export_to_csv(books, filepath):
 
 
 
-def import_from_csv(filepath):
+def import_from_csv(filepath, existing_books=None):
     """Import books from a CSV file. Return a list of books."""
-    imported_books =[]
+    
+    if existing_books is None:
+        existing_books = []
+
     try:
-        with open(filepath, mode="r", newline="", encoding="utf-8") as file:
-            reder= csv.DictReader(file)
-            for row in reder:
-                book={"title":row["title"],"author": row["author"],
-                      "year": int(row["year"]), "genre":row["genre"]}
-                imported_books.append(book)
-                print("ROW:", row)
-        print("Books imported successfully")
-        
-        return imported_books
-        
+        with open(filepath, "r", encoding="utf-8", newline="") as f:
+            reader = csv.DictReader(f)
+            books = []
+            for row in reader:
+                try:
+                    year = int(row.get("year", 0))
+                except (ValueError, TypeError):
+                    year = row.get("year", "")
+
+                new_book = {
+                    "title": (row.get("title") or "").strip(),
+                    "author": (row.get("author") or "").strip(),
+                    "year": year,
+                    "genre": (row.get("genre") or "").strip(),
+                }
+
+                # Check for duplicates based on title and author (case-insensitive)
+                already_exists = any(
+                    b.get("title", "").lower() == new_book["title"].lower()
+                    and b.get("author", "").lower() == new_book["author"].lower()
+                    for b in existing_books
+                )
+
+                if not already_exists:
+                    books.append(new_book)
+
+            return books
+
     except FileNotFoundError:
-        print("Error: csv file not found.")
+        print(f"⚠️  File '{filepath}' not found. Nothing imported.")
         return []
-    except ValueError:
-        print("Error: one of the year in csv file is invalid.")
-        return []
-    except KeyError:
-        print("Error: the csv file has incorrect column names.")
+    except OSError as e:
+        print(f"⚠️  Error: could not read CSV: {e}")
         return []
 
