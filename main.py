@@ -24,7 +24,7 @@ except ImportError:
 
 
 DATA_FILE = os.path.join("data", "library.json")
-CSV_FILE = os.path.join("dara", "library_export.csv")
+CSV_FILE = os.path.join("data", "library_export.csv")
 IMPORT_FILE= os.path.join("data", "books_to_import.csv")
 
 
